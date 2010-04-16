@@ -1,0 +1,35 @@
+% my $server = $_[0]->{handler}->args->[0];
+% my $channel = $_[0]->{handler}->args->[1];
+<html>
+<head>
+<title> #<%= $channel %>@<%= $server %> </title>
+<script type="text/javascript" src="/static/jquery-1.4.2.min.js"></script>
+<script type="text/javascript" src="/static/jquery.ev.js"></script>
+<script type="text/javascript">
+jQuery( function ($) {
+   $.ev.loop('/<%= $server %>/<%= $channel %>/poll' + '?session=' + Math.random(), {
+      privmsg : function(ev) {
+         if (! ev.comment && ! ev.comment_jp) return;
+         $( "#comment" ).prepend(
+            ev.name + '&nbsp;:' + ev.comment_jp + "<br>" +
+            "(" + ev.comment + ")" + "<br><br>"
+         );
+      },
+      message : function(ev) {
+         $( "#comment" ).prepend(
+            '<span style="color: #f00;">' + ev.text + "</span><br><br>"
+         );
+      }
+   });
+});
+</script>
+</head>
+
+<body>
+
+<h1> #<%= $channel %>@<%= $server %> </h1>
+<div id="comment"></div>
+
+</body>
+</html>
+
