@@ -1,0 +1,8 @@
+COMMAND
+   perl irc_translator.psgi
+
+ACCESS
+   http://localhost:5000/{irc_server_name}/{channel_name}
+
+   ex)
+     http://localhost:5000/irc.freenode.net/test_channel
